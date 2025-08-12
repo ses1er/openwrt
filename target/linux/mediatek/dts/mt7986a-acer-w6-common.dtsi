@@ -285,7 +285,7 @@
 			reset-assert-us = <10000>;
 			reset-deassert-us = <10000>;
 
-			ports {
+			swports: ports {
 				#address-cells = <1>;
 				#size-cells = <0>;
 
@@ -326,7 +326,7 @@
 				};
 			};
 
-			mdio {
+			swmdio: mdio {
 				#address-cells = <1>;
 				#size-cells = <0>;
 
