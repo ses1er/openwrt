@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: (GPL-2.0 OR MIT)
 
 /dts-v1/;
-#include <dt-bindings/input/input.h>
 #include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/input/input.h>
 #include <dt-bindings/leds/common.h>
 #include <dt-bindings/pinctrl/mt65xx.h>
 
@@ -14,7 +14,7 @@
 
 	aliases {
 		serial0 = &uart0;
-		label-mac-device = &wifi; 
+		label-mac-device = &wifi;
 		led-boot = &led_status_blue;
 		led-failsafe = &led_status_blue;
 		led-running = &led_status_blue;
@@ -109,6 +109,10 @@
 	};
 };
 
+&crypto {
+	status = "okay";
+};
+
 &eth {
 	status = "okay";
 
@@ -143,14 +147,19 @@
 		#address-cells = <1>;
 		#size-cells = <0>;
 
-		reset-gpios = <&pio 6 GPIO_ACTIVE_LOW>;
-		reset-delay-us = <600>;
-		reset-post-delay-us = <20000>;
-
-		/* MaxLinear 2.5G PHY */
+		/* MaxLinear GPY211C 2.5G PHY */
 		phy6: phy@6 {
-			compatible = "ethernet-phy-ieee802.3-c45";
+			/*
+			 * Force the ID here as the PHY only reports it's
+			 * (C45) ID correctly after a reset (before resetting
+			 * it reports 0xfffffff, which causes only the genphy
+			 * driver to match).
+			 */
+			compatible = "ethernet-phy-id67c9.de10";
 			reg = <6>;
+			reset-gpios = <&pio 6 GPIO_ACTIVE_LOW>;
+			reset-assert-us = <600>;
+			reset-deassert-us = <20000>;
 			phy-mode = "2500base-x";
 		};
 
