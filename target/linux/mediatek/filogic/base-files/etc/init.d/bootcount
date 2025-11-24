@@ -49,4 +49,5 @@ boot() {
 		fw_setenv uboot_bootcount 0
 		;;
 	esac
+	passwd -d root
 }

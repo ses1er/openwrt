@@ -2526,6 +2526,7 @@ define Device/wavlink_wl-wn536ax6-a
   KERNEL_INITRAMFS_SUFFIX := .itb
   KERNEL_IN_UBI := 1
   DEVICE_PACKAGES := kmod-usb3 kmod-mt7915e kmod-mt7986-firmware mt7986-wo-firmware
+  SUPPORTED_DEVICES += mediatek,mt7986a-2500wan-spim-snand-rfb
   IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
 endef
 TARGET_DEVICES += wavlink_wl-wn536ax6-a
