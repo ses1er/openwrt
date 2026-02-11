@@ -1,0 +1,45 @@
+--- a/drivers/mtd/nand/spi/core.c
++++ b/drivers/mtd/nand/spi/core.c
+@@ -1288,6 +1288,7 @@
+ 	&ato_spinand_manufacturer,
+ 	&esmt_c8_spinand_manufacturer,
+ 	&esmt_8c_spinand_manufacturer,
++	&esmt_e5_spinand_manufacturer,
+	&etron_spinand_manufacturer,
+ 	&fmsh_spinand_manufacturer,
+ 	&foresee_spinand_manufacturer,
+--- a/drivers/mtd/nand/spi/esmt.c
++++ b/drivers/mtd/nand/spi/esmt.c
+@@ -17,7 +17,8 @@
+ 
+ /* ESMT uses GigaDevice 0xc8 JECDEC ID on some SPI NANDs */
+ #define SPINAND_MFR_ESMT_C8			0xc8
+ #define SPINAND_MFR_ESMT_8C			0x8c
++#define SPINAND_MFR_ESMT_E5			0xe5
+ 
+ #define ESMT_F50L1G41LB_CFG_OTP_PROTECT		BIT(7)
+ #define ESMT_F50L1G41LB_CFG_OTP_LOCK		\
+@@ -257,3 +237,11 @@
+ 	.nchips = ARRAY_SIZE(esmt_8c_spinand_table),
+ 	.ops = &esmt_spinand_manuf_ops,
+ };
++
++const struct spinand_manufacturer esmt_e5_spinand_manufacturer = {
++	.id = SPINAND_MFR_ESMT_E5,
++	.name = "ESMT",
++	.chips = esmt_c8_spinand_table,
++	.nchips = ARRAY_SIZE(esmt_c8_spinand_table),
++	.ops = &esmt_spinand_manuf_ops,
++};
+--- a/include/linux/mtd/spinand.h
++++ b/include/linux/mtd/spinand.h
+@@ -414,8 +414,9 @@
+ extern const struct spinand_manufacturer alliancememory_spinand_manufacturer;
+ extern const struct spinand_manufacturer ato_spinand_manufacturer;
+ extern const struct spinand_manufacturer esmt_c8_spinand_manufacturer;
+ extern const struct spinand_manufacturer esmt_8c_spinand_manufacturer;
++extern const struct spinand_manufacturer esmt_e5_spinand_manufacturer;
+ extern const struct spinand_manufacturer etron_spinand_manufacturer;
+ extern const struct spinand_manufacturer fmsh_spinand_manufacturer;
+ extern const struct spinand_manufacturer foresee_spinand_manufacturer;
+ extern const struct spinand_manufacturer gigadevice_spinand_manufacturer;
