@@ -1,0 +1,27 @@
+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
+
+#include "mt7981b-comfast-cf-e593ax-common.dtsi"
+
+/ {
+	model = "COMFAST CF-E593AX (OpenWrt U-Boot Layout)";
+	compatible = "comfast,cf-e593ax-ubootmod", "mediatek,mt7981";
+};
+
+&chosen {
+	rootdisk = <&ubi_rootdisk>;
+	bootargs-append = " root=/dev/fit0 rootwait";
+};
+
+&partitions {
+	partition@580000 {
+		label = "ubi";
+		reg = <0x580000 0x7a80000>;
+		compatible = "linux,ubi";
+
+		volumes {
+			ubi_rootdisk: ubi-volume-fit {
+				volname = "fit";
+			};
+		};
+	};
+};
