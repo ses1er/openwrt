@@ -588,6 +588,21 @@ endef
 
 $(eval $(call KernelPackage,phy-aeonsemi-as21xxx))
 
+define KernelPackage/phy-airoha-an8801
+  SUBMENU:=$(NETWORK_DEVICES_MENU)
+  TITLE:=Airoha AN8801SB/R Gigabit Ethernet PHY
+  DEPENDS:=+kmod-libphy
+  KCONFIG:=CONFIG_AIROHA_AN8801_PHY
+  FILES:= \
+   $(LINUX_DIR)/drivers/net/phy/air_an8801.ko
+  AUTOLOAD:=$(call AutoLoad,18,air_an8801,1)
+endef
+
+define KernelPackage/phy-airoha-an8801/description
+  Kernel modules for Airoha AN8801SB/R Gigabit Ethernet PHY
+endef
+
+$(eval $(call KernelPackage,phy-airoha-an8801))
 
 define KernelPackage/phy-airoha-en8811h
   SUBMENU:=$(NETWORK_DEVICES_MENU)
